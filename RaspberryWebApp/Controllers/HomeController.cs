@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryWebApp.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,11 @@ namespace RaspberryWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private RaspContext db = new RaspContext();
         public ActionResult Index()
         {
+
+            var kkt = db.Devices.ToList();
             return View();
         }
 
