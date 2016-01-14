@@ -11,6 +11,8 @@ namespace RaspberryWebApp.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid ID { get; set; }
+
+        public int MaxRelays { get; set; }
         public int devicenumber { get; set; }
         public string Name { get; set; }
         public bool IsSuccess { get; set; }

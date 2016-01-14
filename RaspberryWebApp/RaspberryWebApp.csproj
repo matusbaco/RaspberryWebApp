@@ -258,6 +258,7 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <None Include="Properties\PublishProfiles\RaspberryRelayWebApp.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -303,12 +304,10 @@
     <Content Include="Views\Relays\Delete.cshtml" />
     <Content Include="Views\Relays\Details.cshtml" />
     <Content Include="Views\Relays\Edit.cshtml" />
-    <Content Include="Views\Relays\Index.cshtml" />
     <Content Include="Views\RelayEvents\Create.cshtml" />
     <Content Include="Views\RelayEvents\Delete.cshtml" />
     <Content Include="Views\RelayEvents\Details.cshtml" />
     <Content Include="Views\RelayEvents\Edit.cshtml" />
-    <Content Include="Views\RelayEvents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

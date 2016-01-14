@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RaspberryWebApp.DAL
 {
-    public class RaspInitializer : DropCreateDatabaseIfModelChanges<RaspContext>
+    public class RaspInitializer : DropCreateDatabaseAlways<RaspContext>
 
     //DropCreateDatabaseIfModelChanges
     //DropCreateDatabaseAlways
@@ -24,6 +24,7 @@ namespace RaspberryWebApp.DAL
             device1.devicenumber = 0;
             device1.Name = "0001d";
             device1.ID = Guid.NewGuid();
+            device1.MaxRelays = 6;
 
             devices.Add(device1);
 

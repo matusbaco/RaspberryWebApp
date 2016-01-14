@@ -38,8 +38,8 @@ namespace RaspberryWebApp.Controllers
             RelayEvent eventToCreate = new RelayEvent();
             eventToCreate.RelayID = id;
             eventToCreate.start = DateTime.Now;
-            eventToCreate.duration = 15;
-            eventToCreate.end = eventToCreate.start.AddMinutes(15);
+            eventToCreate.duration = 1;
+            eventToCreate.end = eventToCreate.start.AddMinutes(5);
             return View(eventToCreate);
         }
 
@@ -48,11 +48,21 @@ namespace RaspberryWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,RelayID,start,end,duration,DurationType")] RelayEvent relayEvent)
+        public ActionResult Create([Bind(Include = "ID,RelayID,start,duration,DurationType")] RelayEvent relayEvent)
         {
             if (ModelState.IsValid)
             {
                 relayEvent.ID = Guid.NewGuid();
+                int durationMultipler = 1;
+                if (relayEvent.DurationType == "1")
+                {
+                    durationMultipler = 5;
+                }
+                else if (relayEvent.DurationType == "2")
+                {
+                    durationMultipler = 60;
+                }
+                relayEvent.end = relayEvent.start.AddMinutes(durationMultipler * relayEvent.duration);
 
                 db.RelayEvents.Add(relayEvent);
                 db.SaveChanges();

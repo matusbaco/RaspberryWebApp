@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace RaspberryWebApp.Models
     {
         public Guid RelayID { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid ID { get; set; }
+        public Guid ID { get; set; }       
         public DateTime start { get; set; }
         public DateTime end { get; set; }
         public int duration { get; set; }
@@ -21,7 +22,7 @@ namespace RaspberryWebApp.Models
         public RelayEvent()
         {
             DurationTypes = GetEventDurationType();
-            duration = 15;
+            duration = 1;
         }
 
 

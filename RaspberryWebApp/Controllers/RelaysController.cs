@@ -27,19 +27,18 @@ namespace RaspberryWebApp.Controllers
             {
                 return HttpNotFound();
             }
-            RelayViewModel relayVM = new RelayViewModel();
-            relayVM.Relay = relay;
-            var relayEvents = db.RelayEvents.Where(x => x.RelayID == id.Value).ToList<RelayEvent>();
-            relayVM.RelayEvents = relayEvents;
-            return View(relayVM);
+            DateTime todayZero = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            
+            var relayEvents = db.RelayEvents.Where(x => x.RelayID == relay.ID ).ToList<RelayEvent>();
+            //&& (x.start <= todayZero && x.end >=todayZero
+            relay.RelayEvents = relayEvents;
+            return View(relay);
         }
 
         // GET: Relays/Create
         public ActionResult Create(Guid id)
-        {
-            ViewData["deviceparentid"] = id;
-            Relay relay = new Relay();
-            relay.ID = Guid.NewGuid();
+        {         
+            Relay relay = new Relay();         
             relay.DeviceID = id;
             return View(relay);
         }
@@ -69,14 +68,14 @@ namespace RaspberryWebApp.Controllers
 
             for (int i = 0; i <= relays.Count(); i++)
             {
-                if (!relays.Where(x => x.Index != i).Any())
+                if (!relays.Where(x => x.Index == i).Any())
                 {
                     return i;
                 }
 
             }
 
-            return relays.Count();
+            return relays.Count()+1;
         }
 
         // GET: Relays/Edit/5

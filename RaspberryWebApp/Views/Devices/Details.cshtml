@@ -1,4 +1,6 @@
-﻿@model RaspberryWebApp.Models.Device
+﻿@using RaspberryWebApp.Models
+@using Newtonsoft.Json
+@model RaspberryWebApp.Models.Device
 
 @{
     ViewBag.Title = "Details";
@@ -25,18 +27,117 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsSuccess)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsSuccess)
-        </dd>
-
     </dl>
+    <div>
+        Following relays are found in system
+    </div>
+    <p>
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Index
+                </th>
+
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (Relay relay in Model.Relays)
+            {
+
+               
+                <tr>
+                    <td>
+                        @*@foreach (RelayEvent relayEvent in relay.RelayEvents)
+                        {
+                            @Html.DisplayFor(modelItem => relayEvent.start)
+                        }*@
+                        @Html.DisplayFor(modelItem => relay.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => relay.Index)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Relays", new { id = relay.ID }, null)
+                        @Html.ActionLink("Details", "Details", "Relays", new { id = relay.ID }, null)
+                        @Html.ActionLink("Delete", "Delete", "Relays", new { id = relay.ID }, null)
+                    </td>
+                    <td>
+                        <canvas id="myCanvas" width="200" height="20" style="border:1px solid #000000;">
+                            Your browser does not support the HTML5 canvas tag.
+                        </canvas>
+                    </td>
+</tr>
+            }
+        </table>
+    </p>
 </div>
+@*@if (Model.Relays != null && Model.Relays.Count() < Model.Device.RelayCount)
+    {*@
+
+@Html.ActionLink("+ Relay", "Create", "Relays", new { id = Model.ID }, null)
+
+@*}*@
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit Device", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back All Devices", "Index")
 </p>
+
+@*<div class="calendar-template">
+    <div class="sampleRow" style="height:300px;width:300px;">
+        pondelok
+    </div>
+</div>
+<div class="calendar-renderer">
+
+</div>*@
+
+<script type="text/javascript">
+
+    function RenderRelayDay(relay)
+    {
+
+        var validRelayEvents = [];
+        for(i=0;i< relay.RelayEvents.length;i++)
+        {
+          
+            var relayEvent = relay.RelayEvents[i];
+            var currentStartDate = new Date(relayEvent.start);
+            var currentEndDate = new Date(relayEvent.end);
+
+            var today =   new Date();
+            var todayZero = new Date(today.getYear()+1900,today.getMonth(), today.getDate());
+
+
+            if(todayZero.getTime() >=  currentStartDate.getTime() || todayZero.getTime() <=  currentEndDate.getTime())
+            {
+                validRelayEvents.push(relayEvent);
+            }
+        }
+
+        
+
+    }
+
+$(document).ready(function () {
+
+    var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));  
+  
+    //var $button = $('.calendar-template').find('.sampleRow').clone();
+    //$('.calendar-renderer').append($button);
+  
+    //var aaa = JSON.stringify(data);
+    //var aa="";
+
+    
+    for(i=0;i< data.Relays.length;i++){
+
+        RenderRelayDay(data.Relays[i]);
+
+    }
+
+    });
+</script>

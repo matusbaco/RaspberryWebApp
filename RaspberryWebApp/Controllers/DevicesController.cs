@@ -33,11 +33,13 @@ namespace RaspberryWebApp.Controllers
             {
                 return HttpNotFound();
             }
-            DeviceViewModel deviceVM = new DeviceViewModel();
-            deviceVM.Device = device;
-            var relays = db.Relays.Where(x => x.DeviceID == id.Value).ToList<Relay>();
-            deviceVM.Relays = relays;
-            return View(deviceVM);
+        
+        
+            var relays = db.Relays.Include(c => c.RelayEvents).Where(x => x.DeviceID == id.Value).ToList<Relay>();
+
+
+            device.Relays = relays;
+            return View(device);
         }
 
         // GET: Devices/Create
