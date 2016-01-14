@@ -81,30 +81,30 @@
         </div>
    <script>
 
-            function PopulateDuration() {
+       function PopulateDuration() {
 
 
-                if ($('#duration').val() != null) {
-                    var minutesMultiplier = 5;
-                    if ($('#durationTypeDropdown').val() == "2") {
-                        minutesMultiplier = 60;
-                    }
+           if ($('#duration').val() != null) {
+               var minutesMultiplier = 5;
+               if ($('#durationTypeDropdown').val() == "2") {
+                   minutesMultiplier = 60;
+               }
 
-                    var totalminutes = $('#duration').val() * minutesMultiplier;
-                    if ($('#eventstart').val() != null && $('#eventstart').val() != "") {
-                        var endDate = new Date(moment($('#eventstart').val()).valueOf() + totalminutes * 60 * 1000);
-                        var endDatePretified = moment(endDate).format('DD.MM.YYYY HH:mm');
-                        $('#eventend').val(endDatePretified);
-                    }
-                    else {
-                        $('#eventend').val(null);
-                    }
-                    $('#durationText').val("Total minutes: " + totalminutes.toString());
-                }
-                else {
-                    $('#durationText').val("Total minutes: ");
-                }
-            }
+               var totalminutes = $('#duration').val() * minutesMultiplier;
+               if ($('#eventstart').val() != null && $('#eventstart').val() != "") {
+                   var endDate = new Date(moment($('#eventstart').val()).valueOf() + totalminutes * 60 * 1000);
+                   var endDatePretified = moment(endDate).format('DD.MM.YYYY HH:mm');
+                   $('#eventend').val(endDatePretified);
+               }
+               else {
+                   $('#eventend').val(null);
+               }
+               $('#durationText').val("Total minutes: " + totalminutes.toString());
+           }
+           else {
+               $('#durationText').val("Total minutes: ");
+           }
+       }
 
             function OnDurationChanged() {
 

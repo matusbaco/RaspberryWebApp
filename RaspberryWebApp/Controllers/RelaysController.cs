@@ -28,8 +28,9 @@ namespace RaspberryWebApp.Controllers
                 return HttpNotFound();
             }
             DateTime todayZero = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            
-            var relayEvents = db.RelayEvents.Where(x => x.RelayID == relay.ID ).ToList<RelayEvent>();
+            DateTime todayOne = todayZero.AddDays(1);
+
+            var relayEvents = db.RelayEvents.Where(x => x.RelayID == relay.ID  && (  (x.start<=todayZero && x.end>=todayZero) || (x.end >=todayOne && x.start <=todayOne) || (x.start <= todayZero && x.end >= todayOne) || (x.start>=todayZero && x.end <todayOne) )).ToList<RelayEvent>();
             //&& (x.start <= todayZero && x.end >=todayZero
             relay.RelayEvents = relayEvents;
             return View(relay);
